@@ -30,30 +30,33 @@
 #define SCAN_F12 0x16
 #define SCAN_ESC 0x17
 
-#define EFI_STIP_PROTOCOL_GUID                                                 \
-  {                                                                            \
-    0x387477c1, 0x69c7, 0x11d2, {                                              \
-      0x8e, 0x39, 0x00, 0xa0, 0xc9, 0x69, 0x72, 0x3b                           \
-    }                                                                          \
-  }
+#define EFI_STIP_PROTOCOL_GUID                             \
+    {                                                      \
+        0x387477c1, 0x69c7, 0x11d2,                        \
+        {                                                  \
+            0x8e, 0x39, 0x00, 0xa0, 0xc9, 0x69, 0x72, 0x3b \
+        }                                                  \
+    }
 
 struct efi_stip;
 
-#define DEF_TEXTI_EFI_FUNC(name, ...)                                          \
-  typedef EfiStatus (*EFI_TEXTI_##name)(struct efi_stip * self, __VA_ARGS__)
+#define DEF_TEXTI_EFI_FUNC(name, ...) \
+    typedef EfiStatus (*EFI_TEXTI_##name)(struct efi_stip * self, __VA_ARGS__)
 
-typedef struct {
-  uint16_t scan_code;
-  uint16_t unicode_char;
+typedef struct
+{
+    uint16_t scan_code;
+    uint16_t unicode_char;
 } EfiInputKey;
 
 DEF_TEXTI_EFI_FUNC(RESET, bool);
 DEF_TEXTI_EFI_FUNC(READ_KEY, EfiInputKey *key);
 
-typedef struct efi_stip {
-  EFI_TEXTI_RESET reset;
-  EFI_TEXTI_READ_KEY read_key;
-  EfiEvent wait_for_key;
+typedef struct efi_stip
+{
+    EFI_TEXTI_RESET reset;
+    EFI_TEXTI_READ_KEY read_key;
+    EfiEvent wait_for_key;
 } EfiStip;
 
 #endif

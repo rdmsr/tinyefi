@@ -3,26 +3,32 @@
 
 #include <tinyefi/protos/dpp.h>
 
-#define EFI_FILE_INFO_ID                                                       \
-  (EfiGuid) {                                                                  \
-    0x09576e92, 0x6d3f, 0x11d2, {                                              \
-      0x8e, 0x39, 0x00, 0xa0, 0xc9, 0x69, 0x72, 0x3b                           \
-    }                                                                          \
-  }
+#define EFI_FILE_INFO_ID                                   \
+    (EfiGuid)                                              \
+    {                                                      \
+        0x09576e92, 0x6d3f, 0x11d2,                        \
+        {                                                  \
+            0x8e, 0x39, 0x00, 0xa0, 0xc9, 0x69, 0x72, 0x3b \
+        }                                                  \
+    }
 
-#define EFI_FILE_SYSTEM_INFO_ID                                                \
-  (EfiGuid) {                                                                  \
-    0x09576e93, 0x6d3f, 0x11d2, {                                              \
-      0x8e, 0x39, 0x00, 0xa0, 0xc9, 0x69, 0x72, 0x3b                           \
-    }                                                                          \
-  }
+#define EFI_FILE_SYSTEM_INFO_ID                            \
+    (EfiGuid)                                              \
+    {                                                      \
+        0x09576e93, 0x6d3f, 0x11d2,                        \
+        {                                                  \
+            0x8e, 0x39, 0x00, 0xa0, 0xc9, 0x69, 0x72, 0x3b \
+        }                                                  \
+    }
 
-#define EFI_FILE_SYSTEM_VOLUME_LABEL_ID                                        \
-  (EfiGuid) {                                                                  \
-    0xdb47d7d3, 0xfe81, 0x11d3, {                                              \
-      0x9a, 0x35, 0x00, 0x90, 0x27, 0x3f, 0xc1, 0x4d                           \
-    }                                                                          \
-  }
+#define EFI_FILE_SYSTEM_VOLUME_LABEL_ID                    \
+    (EfiGuid)                                              \
+    {                                                      \
+        0xdb47d7d3, 0xfe81, 0x11d3,                        \
+        {                                                  \
+            0x9a, 0x35, 0x00, 0x90, 0x27, 0x3f, 0xc1, 0x4d \
+        }                                                  \
+    }
 
 #define EFI_FILE_MODE_READ (1 << 0)
 #define EFI_FILE_MODE_WRITE (1 << 1)
@@ -36,42 +42,46 @@
 #define EFI_FILE_ARCHIVE (1 << 5)
 #define EFI_FILE_VALID_ATTR 0x37
 
-typedef struct {
-  uint64_t size;
-  uint64_t file_size;
-  uint64_t physical_size;
-  EfiTime create_time;
-  EfiTime last_access_time;
-  EfiTime modification_time;
-  uint64_t attribute;
-  uint16_t file_name[256];
+typedef struct
+{
+    uint64_t size;
+    uint64_t file_size;
+    uint64_t physical_size;
+    EfiTime create_time;
+    EfiTime last_access_time;
+    EfiTime modification_time;
+    uint64_t attribute;
+    uint16_t file_name[256];
 } EfiFileInfo;
 
-typedef struct {
-  uint64_t size;
-  bool read_only;
-  uint64_t volume_size;
-  uint64_t free_space;
-  uint32_t block_size;
-  uint16_t volume_label;
+typedef struct
+{
+    uint64_t size;
+    bool read_only;
+    uint64_t volume_size;
+    uint64_t free_space;
+    uint32_t block_size;
+    uint16_t volume_label;
 } EfiFileSystemInfo;
 
-typedef struct {
-  uint16_t volume_label[256];
+typedef struct
+{
+    uint16_t volume_label[256];
 } EfiFsVolumeLabel;
 
-typedef struct {
-  EfiEvent event;
-  EfiStatus status;
-  uint32_t buffer_size;
-  void *buffer;
+typedef struct
+{
+    EfiEvent event;
+    EfiStatus status;
+    uint32_t buffer_size;
+    void *buffer;
 } EfiFileIoToken;
 
 struct efi_file_protocol;
 
-#define DEF_FILE_EFI_FUNC(name, ...)                                           \
-  typedef EfiStatus (*EFI_FILE_##name)(struct efi_file_protocol *              \
-                                       self __VA_OPT__(, ) __VA_ARGS__)
+#define DEF_FILE_EFI_FUNC(name, ...)                                \
+    typedef EfiStatus (*EFI_FILE_##name)(struct efi_file_protocol * \
+                                         self __VA_OPT__(, ) __VA_ARGS__)
 
 DEF_FILE_EFI_FUNC(OPEN, struct efi_file_protocol **, uint16_t *, uint64_t,
                   uint64_t);
@@ -90,22 +100,23 @@ DEF_FILE_EFI_FUNC(READ_EX, EfiFileIoToken *);
 DEF_FILE_EFI_FUNC(WRITE_EX, EfiFileIoToken *);
 DEF_FILE_EFI_FUNC(FLUSH_EX, EfiFileIoToken *);
 
-typedef struct efi_file_protocol {
-  uint64_t revision;
-  EFI_FILE_OPEN open;
-  EFI_FILE_CLOSE close;
-  EFI_FILE_DELETE delete_file;
-  EFI_FILE_READ read;
-  EFI_FILE_WRITE write;
-  EFI_FILE_GET_POSITION get_position;
-  EFI_FILE_SET_POSITION set_position;
-  EFI_FILE_GET_INFO get_info;
-  EFI_FILE_SET_INFO set_info;
-  EFI_FILE_FLUSH flush;
-  EFI_FILE_OPEN_EX open_ex;
-  EFI_FILE_READ_EX read_ex;
-  EFI_FILE_WRITE_EX write_ex;
-  EFI_FILE_FLUSH_EX flush_ex;
+typedef struct efi_file_protocol
+{
+    uint64_t revision;
+    EFI_FILE_OPEN open;
+    EFI_FILE_CLOSE close;
+    EFI_FILE_DELETE delete_file;
+    EFI_FILE_READ read;
+    EFI_FILE_WRITE write;
+    EFI_FILE_GET_POSITION get_position;
+    EFI_FILE_SET_POSITION set_position;
+    EFI_FILE_GET_INFO get_info;
+    EFI_FILE_SET_INFO set_info;
+    EFI_FILE_FLUSH flush;
+    EFI_FILE_OPEN_EX open_ex;
+    EFI_FILE_READ_EX read_ex;
+    EFI_FILE_WRITE_EX write_ex;
+    EFI_FILE_FLUSH_EX flush_ex;
 } EfiFp;
 
 #endif

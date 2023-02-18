@@ -5,11 +5,12 @@
 #include <stddef.h>
 #include <stdint.h>
 
-typedef struct {
-  uint32_t data1;
-  uint16_t data2;
-  uint16_t data3;
-  uint8_t data4[8];
+typedef struct
+{
+    uint32_t data1;
+    uint16_t data2;
+    uint16_t data3;
+    uint8_t data4[8];
 } EfiGuid;
 
 typedef uint64_t EfiStatus;
@@ -18,40 +19,44 @@ typedef void *EfiHandle;
 
 /* https://uefi.org/sites/default/files/resources/UEfi%20Spec%202.8B%20May%202020.pdf
   Section 8.3 */
-typedef struct {
-  uint16_t year;
-  uint8_t month;
-  uint8_t day;
-  uint8_t hour;
-  uint8_t minute;
-  uint8_t second;
-  uint8_t _pad1;
-  uint32_t nanosecond;
-  int16_t time_zone;
-  uint8_t daylight;
-  uint8_t _pad2;
+typedef struct
+{
+    uint16_t year;
+    uint8_t month;
+    uint8_t day;
+    uint8_t hour;
+    uint8_t minute;
+    uint8_t second;
+    uint8_t _pad1;
+    uint32_t nanosecond;
+    int16_t time_zone;
+    uint8_t daylight;
+    uint8_t _pad2;
 } EfiTime;
 
-typedef struct {
-  uint32_t resolution;
-  uint32_t accuracy;
-  bool sets_to_zero;
+typedef struct
+{
+    uint32_t resolution;
+    uint32_t accuracy;
+    bool sets_to_zero;
 } EfiTimeCapabilities;
 
-typedef struct {
-  uint32_t type;
-  uint64_t physical_start;
-  uint64_t virtual_start;
-  uint64_t num_pages;
-  uint64_t attribute;
+typedef struct
+{
+    uint32_t type;
+    uint64_t physical_start;
+    uint64_t virtual_start;
+    uint64_t num_pages;
+    uint64_t attribute;
 } EfiMemoryDescriptor;
 
-typedef struct {
-  uint64_t signature;
-  uint32_t revision;
-  uint32_t header_size;
-  uint32_t CRC32;
-  uint32_t _reserved;
+typedef struct
+{
+    uint64_t signature;
+    uint32_t revision;
+    uint32_t header_size;
+    uint32_t CRC32;
+    uint32_t _reserved;
 } EfiTableHeader;
 
 #define EFI_SUCCESS 0

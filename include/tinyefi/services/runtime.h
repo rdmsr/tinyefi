@@ -10,27 +10,31 @@
 #define CAPSULE_FLAGS_POPULATE_SYSTEM_TABLE 0x00020000
 #define CAPSULE_FLAGS_INITIATE_RESET 0x00040000
 
-typedef enum {
-  EFI_RESET_COLD,
-  EFI_RESET_WARM,
-  EFI_RESET_SHUTDOWN,
-  EFI_RESET_PLATFORM_SPECIFIC
+typedef enum
+{
+    EFI_RESET_COLD,
+    EFI_RESET_WARM,
+    EFI_RESET_SHUTDOWN,
+    EFI_RESET_PLATFORM_SPECIFIC
 } EfiResetType;
 
-typedef struct {
-  uint64_t len;
-  union {
-    uint64_t data_block;
-    uint64_t continuation_pointer;
-  } _union;
+typedef struct
+{
+    uint64_t len;
+    union
+    {
+        uint64_t data_block;
+        uint64_t continuation_pointer;
+    } _union;
 
 } EfiCapsuleBlockDescriptor;
 
-typedef struct {
-  EfiGuid capsule_guid;
-  uint32_t header_size;
-  uint32_t flags;
-  uint32_t capsule_image_size;
+typedef struct
+{
+    EfiGuid capsule_guid;
+    uint32_t header_size;
+    uint32_t flags;
+    uint32_t capsule_image_size;
 } EfiCapsuleHeader;
 
 DEF_EFI_FUNC(GET_TIME, EfiTime *, EfiTimeCapabilities *);
@@ -51,22 +55,23 @@ DEF_EFI_FUNC(QUERY_CAPSULE_CAPABILITIES, EfiCapsuleHeader **, uint64_t,
              uint64_t *, EfiResetType *);
 DEF_EFI_FUNC(QUERY_VARIABLE_INFO, uint32_t, uint64_t *, uint64_t *, uint64_t *);
 
-typedef struct {
-  EfiTableHeader hdr;
-  EFI_GET_TIME get_time;
-  EFI_SET_TIME set_time;
-  EFI_GET_WAKEUP_TIME get_wakeup_time;
-  EFI_SET_WAKEUP_TIME set_wakeup_time;
-  EFI_SET_VIRTUAL_ADDRESS_MAP set_virtual_address_map;
-  EFI_CONVERT_POINTER convert_pointer;
-  EFI_GET_VARIABLE get_variable;
-  EFI_GET_NEXT_VARIABLE_NAME get_next_variable_name;
-  EFI_SET_VARIABLE set_variable;
-  EFI_GET_NEXT_HIGH_MONO_COUNT get_next_high_monotonic_count;
-  EFI_RESET_SYSTEM reset_system;
-  EFI_UPDATE_CAPSULE update_capsule;
-  EFI_QUERY_CAPSULE_CAPABILITIES query_capsule_capabilities;
-  EFI_QUERY_VARIABLE_INFO query_variable_info;
+typedef struct
+{
+    EfiTableHeader hdr;
+    EFI_GET_TIME get_time;
+    EFI_SET_TIME set_time;
+    EFI_GET_WAKEUP_TIME get_wakeup_time;
+    EFI_SET_WAKEUP_TIME set_wakeup_time;
+    EFI_SET_VIRTUAL_ADDRESS_MAP set_virtual_address_map;
+    EFI_CONVERT_POINTER convert_pointer;
+    EFI_GET_VARIABLE get_variable;
+    EFI_GET_NEXT_VARIABLE_NAME get_next_variable_name;
+    EFI_SET_VARIABLE set_variable;
+    EFI_GET_NEXT_HIGH_MONO_COUNT get_next_high_monotonic_count;
+    EFI_RESET_SYSTEM reset_system;
+    EFI_UPDATE_CAPSULE update_capsule;
+    EFI_QUERY_CAPSULE_CAPABILITIES query_capsule_capabilities;
+    EFI_QUERY_VARIABLE_INFO query_variable_info;
 } EfiRuntimeServices;
 
 #endif

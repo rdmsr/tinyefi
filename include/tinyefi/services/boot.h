@@ -46,28 +46,39 @@
 
 typedef void (*EfiEventNotifyFunction)(EfiEvent, void *);
 
-typedef enum { TIMER_CANCEL, TIMER_PERIODIC, TIMER_RELATIVE } EfiTimerDelay;
+typedef enum
+{
+    TIMER_CANCEL,
+    TIMER_PERIODIC,
+    TIMER_RELATIVE
+} EfiTimerDelay;
 
-typedef enum {
-  ALLOCATE_ANY_PAGES,
-  ALLOCATE_MAX_ADDRESS,
-  ALLOCATE_ADDRESS,
-  MAX_ALLOCATE_TYPE
+typedef enum
+{
+    ALLOCATE_ANY_PAGES,
+    ALLOCATE_MAX_ADDRESS,
+    ALLOCATE_ADDRESS,
+    MAX_ALLOCATE_TYPE
 } EfiAllocateType;
 
-typedef enum { EFI_NATIVE_INTERFACE } EfiInterfaceType;
+typedef enum
+{
+    EFI_NATIVE_INTERFACE
+} EfiInterfaceType;
 
-typedef enum {
-  ALL_HANDLES,
-  BY_REGISTER_NOTIFY,
-  BY_PROTOCOL
+typedef enum
+{
+    ALL_HANDLES,
+    BY_REGISTER_NOTIFY,
+    BY_PROTOCOL
 } EfiLocateSearchType;
 
-typedef struct Efi_OPEN_PROTOCOL_INFORMATION_ENTRY {
-  EfiHandle agent_handle;
-  EfiHandle controller_handle;
-  uint32_t attributes;
-  uint32_t open_count;
+typedef struct Efi_OPEN_PROTOCOL_INFORMATION_ENTRY
+{
+    EfiHandle agent_handle;
+    EfiHandle controller_handle;
+    uint32_t attributes;
+    uint32_t open_count;
 } EfiOpenProtocolInformationEntry;
 
 #define DEF_EFI_FUNC(name, ...) typedef EfiStatus (*EFI_##name)(__VA_ARGS__)
@@ -126,55 +137,56 @@ DEF_EFI_FUNC(SET_MEM, void *, uint64_t, uint8_t);
 DEF_EFI_FUNC(CREATE_EVENT_EX, uint32_t, uint64_t, EfiEventNotifyFunction,
              void *, EfiGuid *, EfiEvent *);
 
-typedef struct {
-  EfiTableHeader hdr;
-  EFI_RAISE_TPL raise_tpl;
-  EFI_RESTORE_TPL restore_tpl;
-  EFI_ALLOCATE_PAGES allocate_pages;
-  EFI_FREE_PAGES free_pages;
-  EFI_GET_MEMORY_MAP get_memory_map;
-  EFI_ALLOCATE_POOL allocate_pool;
-  EFI_FREE_POOL free_pool;
-  EFI_CREATE_EVENT create_event;
-  EFI_SET_TIMER set_timer;
-  EFI_wait_for$_EVENT wait_for_event;
-  EFI_SIGNAL_EVENT signal_event;
-  EFI_CLOSE_EVENT close_event;
-  EFI_CHECK_EVENT check_event;
-  EFI_INSTALL_PROTOCOL_INTERFACE install_protocol_interface;
-  EFI_REINSTALL_PROTOCOL_INTERFACE reinstall_protocol_interface;
-  EFI_UNINSTALL_PROTOCOL_INTERFACE uninstall_protocol_interface;
-  EFI_HANDLE_PROTOCOL handle_protocol;
-  void *_reserved;
-  EFI_REGISTER_PROTOCOL_NOTIFY register_protocol_notify;
-  EFI_LOCATE_HANDLE locate_handle;
-  EFI_LOCATE_DEVICE_PATH locate_device_path;
-  EFI_INSTALL_CONFIGURATION_TABLE install_configuration_table;
-  EFI_IMAGE_LOAD load_image;
-  EFI_IMAGE_START start_image;
-  EFI_EXIT exit;
-  EFI_IMAGE_UNLOAD unload_image;
-  EFI_EXIT_BOOT_SERVICES exit_boot_services;
-  EFI_GET_NEXT_MONOTONIC_COUNT get_next_monotonic_count;
-  EFI_STALL stall;
-  EFI_SET_WATCHDOG_TIMER set_watchdog_timer;
-  EFI_CONNECT_CONTROLLER connect_controller;
-  EFI_DISCONNECT_CONTROLLER disconnect_controller;
-  EFI_OPEN_PROTOCOL open_protocol;
-  EFI_CLOSE_PROTOCOL close_protocol;
-  EFI_OPEN_PROTOCOL_INFORMATION open_protocol_information;
-  EFI_PROTOCOLS_PER_HANDLE protocols_per_handle;
-  EFI_LOCATE_HANDLE_BUFFER locate_handle_buffer;
-  EFI_LOCATE_PROTOCOL locate_protocol;
-  EFI_INSTALL_MULTIPLE_PROTOCOL_INTERFACES install_multiple_protocol_interfaces;
-  EFI_UNINSTALL_MULTIPLE_PROTOCOL_INTERFACES
-  uninstall_multiple_protocol_interfaces;
+typedef struct
+{
+    EfiTableHeader hdr;
+    EFI_RAISE_TPL raise_tpl;
+    EFI_RESTORE_TPL restore_tpl;
+    EFI_ALLOCATE_PAGES allocate_pages;
+    EFI_FREE_PAGES free_pages;
+    EFI_GET_MEMORY_MAP get_memory_map;
+    EFI_ALLOCATE_POOL allocate_pool;
+    EFI_FREE_POOL free_pool;
+    EFI_CREATE_EVENT create_event;
+    EFI_SET_TIMER set_timer;
+    EFI_wait_for$_EVENT wait_for_event;
+    EFI_SIGNAL_EVENT signal_event;
+    EFI_CLOSE_EVENT close_event;
+    EFI_CHECK_EVENT check_event;
+    EFI_INSTALL_PROTOCOL_INTERFACE install_protocol_interface;
+    EFI_REINSTALL_PROTOCOL_INTERFACE reinstall_protocol_interface;
+    EFI_UNINSTALL_PROTOCOL_INTERFACE uninstall_protocol_interface;
+    EFI_HANDLE_PROTOCOL handle_protocol;
+    void *_reserved;
+    EFI_REGISTER_PROTOCOL_NOTIFY register_protocol_notify;
+    EFI_LOCATE_HANDLE locate_handle;
+    EFI_LOCATE_DEVICE_PATH locate_device_path;
+    EFI_INSTALL_CONFIGURATION_TABLE install_configuration_table;
+    EFI_IMAGE_LOAD load_image;
+    EFI_IMAGE_START start_image;
+    EFI_EXIT exit;
+    EFI_IMAGE_UNLOAD unload_image;
+    EFI_EXIT_BOOT_SERVICES exit_boot_services;
+    EFI_GET_NEXT_MONOTONIC_COUNT get_next_monotonic_count;
+    EFI_STALL stall;
+    EFI_SET_WATCHDOG_TIMER set_watchdog_timer;
+    EFI_CONNECT_CONTROLLER connect_controller;
+    EFI_DISCONNECT_CONTROLLER disconnect_controller;
+    EFI_OPEN_PROTOCOL open_protocol;
+    EFI_CLOSE_PROTOCOL close_protocol;
+    EFI_OPEN_PROTOCOL_INFORMATION open_protocol_information;
+    EFI_PROTOCOLS_PER_HANDLE protocols_per_handle;
+    EFI_LOCATE_HANDLE_BUFFER locate_handle_buffer;
+    EFI_LOCATE_PROTOCOL locate_protocol;
+    EFI_INSTALL_MULTIPLE_PROTOCOL_INTERFACES install_multiple_protocol_interfaces;
+    EFI_UNINSTALL_MULTIPLE_PROTOCOL_INTERFACES
+    uninstall_multiple_protocol_interfaces;
 
-  EFI_CALCULATE_CRC32 calculate_crc32;
+    EFI_CALCULATE_CRC32 calculate_crc32;
 
-  EFI_COPY_MEM copy_mem;
-  EFI_SET_MEM set_mem;
-  EFI_CREATE_EVENT_EX create_event_ex;
+    EFI_COPY_MEM copy_mem;
+    EFI_SET_MEM set_mem;
+    EFI_CREATE_EVENT_EX create_event_ex;
 } EfiBootServices;
 
 #endif
